@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analisis Sentimen</title>
+    
+    {% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <div class="navbar">
+        <h2><a href="/">Analisis Sentimen</a></h2>
+        <ul>
+            <li><a href="{{ url_for('beranda')}}">Informasi Website</a></li>
+            <li><a href="{{ url_for('sentimen')}}">Analisis Per Kata</a></li>
+            <li><a href="{{ url_for('sentimen2')}}">Analisis Per Kalimat</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
