@@ -7,7 +7,10 @@ import csv
 import operator
 import shutil
 import zipfile
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
+from keras.models import load_model
+import pickle
+import numpy as np
 
 app = Flask(__name__)
 app.static_folder = 'static'
@@ -78,15 +81,15 @@ def analyze_text(limit=10):
 
     return wordlist_with_label
 
-# Route untuk halaman sentimen2
-@app.route('/sentimen2', methods=['GET', 'POST'])
-def sentimen2():
-    if request.method == 'POST':
-        query = request.form['query']
-        if query:
-            result = analyze_text_sentimen2(query)
-            return render_template('sentimen2.html', result=result, query=query)
-    return render_template('sentimen2.html')
+# # Route untuk halaman sentimen2
+# @app.route('/sentimen2', methods=['GET', 'POST'])
+# def sentimen2():
+#     if request.method == 'POST':
+#         query = request.form['query']
+#         if query:
+#             result = analyze_text_sentimen2(query)
+#             return render_template('sentimen2.html', result=result, query=query)
+#     return render_template('sentimen2.html')
 
 # Analisis teks untuk halaman sentimen2
 def analyze_text_sentimen2(query):
@@ -134,6 +137,32 @@ def search():
         return render_template('sentimen.html', wordlist_with_label=filtered_wordlist_with_label, query=query)
     else:
         return redirect('/sentimen')
+
+# # Muat model dan vectorizer
+model = load_model("sentiment_model.h5")
+with open('tfidf_vectorizer.pkl', 'rb') as f:
+    vectorizer = pickle.load(f)
+
+# Fungsi prediksi
+def predict_sentiment(text, model, vectorizer, label_mapping):
+    text = text.lower()
+    text_vect = vectorizer.transform([text]).toarray()
+    pred_prob = model.predict(text_vect)
+    pred_label = np.argmax(pred_prob, axis=1)
+    return label_mapping[pred_label[0]]
+
+@app.route('/sentimen2', methods=['GET', 'POST'])
+def sentimen2():
+    prediction = None  # default value in case we don't predict anything
+    if request.method == 'POST':
+        query = request.form['query']
+        if query:
+            result = analyze_text_sentimen2(query)
+            # Predict sentiment for the provided query
+            prediction = predict_sentiment(query, model, vectorizer, label_mapping)
+            return render_template('sentimen2.html', result=result, query=query, prediction=prediction)
+    return render_template('sentimen2.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

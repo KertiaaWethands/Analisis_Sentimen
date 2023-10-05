@@ -13,12 +13,9 @@
 
 </form>
 
-{% if result %}
-    <h3>Hasil Pencarian untuk "{{ query }}"</h3>
-    {% for item in result %}
-        <p>Label Sentimen: {{ item['Label Sentimen'] }}</p>
-        <p>Persentase Sentimen: {{ item['Persentase Sentimen'] }}%</p>
-    {% endfor %}
+{% if prediction %}
+    <p>Predicted Sentiment: {{ prediction }}</p>
 {% endif %}
+
 
 {% endblock %}
