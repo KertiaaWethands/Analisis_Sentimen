@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>Analisis Per Kata</h1>
+<h1>Sentimen dan Persentase</h1>
 <p class="judul">Analisis Sentimen Opini Public Terhadap Fenomena Resesi 2023 di Indonesia Menggunakan Algoritma Artificial Neural Network (ANN)</p>
 <h3>Informasi</h3>
 <p class="penjelasan">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus, augue a placerat gravida, libero eros fermentum nunc, et tincidunt eros nulla eu nisi. Etiam elementum massa augue, ac porttitor ligula hendrerit et. Aenean ut est eget arcu fringilla efficitur. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
@@ -15,26 +15,33 @@
     <input type="text" name="query" id="searchInput" class="search" placeholder="Masukkan kata kunci" required>
 </form>
 
+{% if search_results %}
 <table class="table">
     <thead>
         <tr>
+            <th>Teks</th>
             <th>Sentimen</th>
-            <th>Label Sentimen</th>
-            <th>Persentase Sentimen</th>
         </tr>
     </thead>
     <tbody>
-        {% for item in wordlist_with_label %}
-        {% if query and item[1].lower().find(query.lower()) != -1 or not query %}
+        {% for result in search_results %}
         <tr>
-            <td>{{ item[1] }}</td>
-            <td>{{ item[0] }}</td>
-            <td>{{ item[2] }}%</td>
+            <td>{{ result.Teks }}</td>
+            <td>{{ result.Label }}</td>
         </tr>
-        {% endif %}
         {% endfor %}
     </tbody>
 </table>
+{% else %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Teks</th>
+            <th>Sentimen</th>
+        </tr>
+    </thead>
+</table>
+{% endif %}
 
 <script>
     // Mencari kata saat pengguna mengetik
@@ -49,12 +56,12 @@
 
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                var label = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                var label = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
 
                 if (query !== '' && label.indexOf(query.toLowerCase()) === -1) {
                     row.style.display = 'none';
                 } else {
-                    row.style.display = '';
+                    row.style.display = ''; // Menampilkan baris yang cocok
                 }
             }
         }, 300);
