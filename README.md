@@ -9,15 +9,14 @@ Berikut adalah langkah-langkah yang perlu Anda ikuti untuk mengatur dan menjalan
 
    Jika Anda belum memiliki `virtualenv` diinstal, Anda dapat menginstalnya menggunakan perintah berikut:
    ```
-  pip install virtualenv
-  ```
-
-2. **Membuat Lingkungan Virtual:**
+    pip install virtualenv
+   ```
+3. **Membuat Lingkungan Virtual:**
 
   Buat lingkungan virtual dengan menjalankan perintah ini di terminal:
    ```
-    virtualenv "nama_env"
-    ```
+   virtualenv "nama_env"
+   ```
 
 3. **Aktivasi Lingkungan Virtual:**
 
