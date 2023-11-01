@@ -52,17 +52,21 @@ def search():
         # Mengambil hasil pencarian dalam bentuk dictionary
         search_results = filtered_df.to_dict(orient='records')
 
-        return jsonify({
-            'search_results': search_results,
-            'positif': positif_percentage,
-            'negatif': negatif_percentage,
-            'netral': netral_percentage,
-            'query': query
-        })
+        # return jsonify({
+        #     'search_results': search_results,
+        #     'positif': positif_percentage,
+        #     'negatif': negatif_percentage,
+        #     'netral': netral_percentage,
+        #     'query': query
+        # })
+        return render_template('sentimen.html', 
+                           positif=positif_percentage, negatif=negatif_percentage, netral=netral_percentage, search_results=search_results)
     else:
         return jsonify({
             'error': 'Kata kunci pencarian tidak ditemukan'
         })
+    
+    
 
 
 if __name__ == '__main__':
