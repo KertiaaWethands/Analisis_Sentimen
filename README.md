@@ -15,7 +15,7 @@ Berikut adalah langkah-langkah yang perlu Anda ikuti untuk mengatur dan menjalan
 2. **Membuat Lingkungan Virtual:**
 
   Buat lingkungan virtual dengan menjalankan perintah ini di terminal:
-   ```bash
+   ```
     virtualenv "nama_env"
     ```
 
