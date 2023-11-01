@@ -8,7 +8,7 @@ Berikut adalah langkah-langkah yang perlu Anda ikuti untuk mengatur dan menjalan
 1. **Instal Virtual Environment:**
 
    Jika Anda belum memiliki `virtualenv` diinstal, Anda dapat menginstalnya menggunakan perintah berikut:
-   ```bash
+   ```
   pip install virtualenv
   ```
 
