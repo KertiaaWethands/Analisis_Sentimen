@@ -2,7 +2,13 @@ h1{
     text-align: center;
     margin-bottom: 0;
 }
-
+p{
+    font-size: 24px;
+    text-align: center;
+}
+.label{
+    font-size: 30px;
+}
 .judul{
     width: 600px;
     font-size: 20px;
@@ -33,4 +39,7 @@ h3{
 .img-container img {
     width: 250px;
     margin: 10px;
+}
+.content{
+    padding: 50px;
 }

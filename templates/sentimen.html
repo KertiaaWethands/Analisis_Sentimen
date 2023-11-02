@@ -14,41 +14,11 @@
 
   <form action="/search" method="GET">
     <div class="input-group mb-3">
-      <input type="text" name="query" id="searchInput" class="form-control" placeholder="Masukkan kata kunci" required>
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="submit">Cari</button>
-      </div>
+      <input type="text" name="query" id="searchInput" class="form-control" placeholder="Masukkan kata kunci" required style="border: 1px solid grey;">
     </div>
   </form>
 
   {% if search_results %}
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Positif</h5>
-            <p class="card-text">Persentase: {{ positif }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Netral</h5>
-            <p class="card-text">Persentase: {{ netral }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Negatif</h5>
-            <p class="card-text">Persentase: {{ negatif }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <table class="table mt-4">
       <thead>
         <tr>
