@@ -1,63 +1,81 @@
-{% extends "main_layout.html" %} {% block styles %} {{ super() }}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/sentimen.css') }}"
-/>
-{% endblock %} {% block content %}
-<h1>Sentimen dan Persentase</h1>
-<p class="judul">
-  Analisis Sentimen Opini Public Terhadap Fenomena Resesi 2023 di Indonesia
-  Menggunakan Algoritma Artificial Neural Network (ANN)
-</p>
-<h3>Informasi</h3>
-<p class="penjelasan">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus, augue a
-  placerat gravida, libero eros fermentum nunc, et tincidunt eros nulla eu nisi.
-  Etiam elementum massa augue, ac porttitor ligula hendrerit et. Aenean ut est
-  eget arcu fringilla efficitur. Orci varius natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus.
-</p>
+{% extends "main_layout.html" %} 
+{% block styles %} 
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sentimen.css') }}">
+  <!-- Tambahkan Bootstrap CSS jika belum ada -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %} 
 
-<form action="/search" method="GET">
-  <input
-    type="text"
-    name="query"
-    id="searchInput"
-    class="search"
-    placeholder="Masukkan kata kunci"
-    required
-  />
-</form>
+{% block content %}
+  <h1>Sentimen dan Persentase</h1>
+  <p class="judul">
+    Analisis Sentimen Opini Public Terhadap Fenomena Resesi 2023 di Indonesia
+  </p>
 
-{% if search_results %}
-<h2>Positif: {{ positif }}</h2>
-<h2>Negatif: {{ negatif }}</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Teks</th>
-      <th>Sentimen</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for result in search_results %}
-    <tr>
-      <td>{{ result.Teks }}</td>
-      <td>{{ result.Label }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% else %}
-<table class="table">
-  <thead>
-    <tr>
-      <th>Teks</th>
-      <th>Sentimen</th>
-    </tr>
-  </thead>
-</table>
-{% endif %}
+  <form action="/search" method="GET">
+    <div class="input-group mb-3">
+      <input type="text" name="query" id="searchInput" class="form-control" placeholder="Masukkan kata kunci" required>
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Cari</button>
+      </div>
+    </div>
+  </form>
+
+  {% if search_results %}
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Positif</h5>
+            <p class="card-text">Persentase: {{ positif }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Netral</h5>
+            <p class="card-text">Persentase: {{ netral }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Negatif</h5>
+            <p class="card-text">Persentase: {{ negatif }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th>Teks</th>
+          <th>Sentimen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in search_results %}
+          <tr>
+            <td>{{ result.Teks }}</td>
+            <td>{{ result.Label }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Teks</th>
+          <th>Sentimen</th>
+        </tr>
+      </thead>
+    </table>
+  {% endif %}
+</div>
 
 <script>
   // Mencari kata saat pengguna mengetik
@@ -72,9 +90,7 @@
 
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        var label = row
-          .querySelector("td:nth-child(1)")
-          .textContent.toLowerCase();
+        var label = row.querySelector("td:nth-child(1)").textContent.toLowerCase();
 
         if (query !== "" && label.indexOf(query.toLowerCase()) === -1) {
           row.style.display = "none";

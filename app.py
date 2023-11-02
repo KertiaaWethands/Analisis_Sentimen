@@ -6,13 +6,9 @@ app = Flask(__name__)
 # Baca dataset
 df = pd.read_csv('dataset.csv')  # Ganti 'dataset.csv' dengan nama file dataset Anda
 
-# Route untuk halaman beranda
-@app.route('/')
-def beranda():
-    return render_template('beranda.html')
 
 # Route untuk halaman sentimen
-@app.route('/sentimen')
+@app.route('/')
 def sentimen():
     # Menghitung jumlah data dengan label positif, negatif, dan netral
     positif_count = len(df[df['Label'] == 'Positif'])
