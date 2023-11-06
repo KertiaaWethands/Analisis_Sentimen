@@ -49,5 +49,6 @@ Instal Flask di dalam lingkungan virtual yang sudah diaktifkan:
   ```
 
 
+# Developer 
 
-
+[Robby Sobari](https://github.com/robbysobarii)
